@@ -1,0 +1,167 @@
+import { 
+    Button, 
+    VerticalBox, 
+    AboutSlint,
+    ComboBox,
+    GroupBox,
+    CheckBox,
+    LineEdit,
+    ListView,
+    ProgressIndicator,
+    Slider, 
+    SpinBox, 
+    Switch, 
+    TabWidget, 
+    TextEdit, 
+    HorizontalBox
+} from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+    in-out property<int> counter: 42;
+    in-out property<float> progress: 0.5;
+    callback request-increase-value;
+    callback change-progress(float);
+    background: #eee;
+
+    min-height: 480px;
+    min-width: 600px;
+    VerticalBox {
+        padding: 16px;
+        spacing: 16px;
+        alignment: LayoutAlignment.start;
+
+        Text {
+            color: Colors.blue;
+            font-size: 14px;
+            text: "14px Counter: \{root.counter}";
+        }
+        Text {
+            color: Colors.blue;
+            font-size: 16px;
+            text: "16px Counter: \{root.counter}";
+        }
+        Text {
+            color: Colors.blue;
+            font-size: 18px;
+            text: "18px Counter: \{root.counter}";
+        }
+
+        LineEdit {
+            font-size: 14px;
+            height: 20px;
+            placeholder-text: "Enter text here";
+        }
+
+        TextEdit {
+            font-size: 14px;
+            max-height: 40px;
+            text: "Lorem ipsum dolor sit amet,\n consectetur adipisici elit";
+        }
+
+        ComboBox {
+            max-height: 20px;
+            model: ["first", "second", "third"];
+            current-value: "first";
+        }
+
+        GroupBox {
+            title: "GroupBox";
+            max-height: 20px;
+            HorizontalBox {
+                spacing: 16px;
+                alignment: LayoutAlignment.start;
+                CheckBox { text: "Bread"; checked: true ;}
+                CheckBox { text: "Fruits"; }
+            }
+        }
+
+        Switch {
+            max-height: 20px;
+            text: "Hello World";
+        }
+
+        ProgressIndicator {
+            height: 20px;
+            progress: {root.progress};
+        }
+
+        Slider {
+            height: 40px;
+            minimum: 0.0;
+            value: 0.42;
+            maximum: 1.0;
+            changed(value) => {
+                root.progress = value;
+            }
+        }
+
+        TabWidget {
+            min-height: 250px;
+            Tab {
+                title: "First";
+                ListView {
+                    for data in [
+                        { text: "Blue", color: #0000ff, bg: #eeeeee},
+                        { text: "Red", color: #ff0000, bg: #eeeeee},
+                        { text: "Green", color: #00ff00, bg: #eeeeee},
+                        { text: "Yellow", color: #ffff00, bg: #222222 },
+                        { text: "Black", color: #000000, bg: #eeeeee },
+                        { text: "White", color: #ffffff, bg: #222222 },
+                        { text: "Magenta", color: #ff00ff, bg: #eeeeee },
+                        { text: "Cyan", color: #00ffff, bg: #222222 },
+                    ] : Rectangle {
+                        height: 30px;
+                        background: data.bg;
+                        Text {
+                            x: 0;
+                            text: data.text;
+                            color: data.color;
+                        }
+                    }
+                }
+            }
+            Tab {
+                title: "Second";
+                ListView {
+                    for data in [
+                        { text: "Blue", color: #0000ff, bg: #eeeeee},
+                        { text: "Red", color: #ff0000, bg: #eeeeee},
+                        { text: "Green", color: #00ff00, bg: #eeeeee},
+                        { text: "Yellow", color: #ffff00, bg: #222222 },
+                        { text: "Black", color: #000000, bg: #eeeeee },
+                        { text: "White", color: #ffffff, bg: #222222 },
+                        { text: "Magenta", color: #ff00ff, bg: #eeeeee },
+                        { text: "Cyan", color: #00ffff, bg: #222222 },
+                    ] : Rectangle {
+                        height: 30px;
+                        background: data.bg;
+                        Text {
+                            x: 0;
+                            text: data.text;
+                            color: data.color;
+                        }
+                    }
+                }
+            }
+        }
+
+        Button {
+            height: 40px;
+            primary: true;
+            text: "Increase value";
+            clicked => {
+                root.request-increase-value();
+            }
+        
+        }
+
+
+
+        AboutSlint {
+            height: 20px;
+        }
+    }
+
+
+    
+}
